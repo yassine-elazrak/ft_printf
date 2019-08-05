@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 08:50:57 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/05 10:23:01 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int				ft_print_d(va_list list, t_init *lst);
 int				ft_print_base(va_list list, t_init *lst);
 int				ft_print_s(va_list list, t_init *lst);
 int				ft_print_c(va_list list, t_init *lst);
+int				ft_print_persent(t_init *lst);
 
 int				ft_printf(const char *format, ...);
 int				ft_print_format(va_list list, const char *format, t_init *f);
