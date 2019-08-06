@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 01:35:10 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 08:28:25 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/06 19:34:14 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_print_d(va_list list, t_init *lst)
 	len = 0;
 	if ((lst->flag & LL) == LL)
 		nbr = va_arg(list, long long int);
-	else if ((lst->flag & L) == L)
+	else if ((lst->flag & LONG) == LONG)
 		nbr = va_arg(list, long int);
 	else if ((lst->flag & HH) == HH)
 		nbr = (char)va_arg(list, int);

@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:39:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/01 19:33:48 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/06 15:42:06 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
-int					ft_abs(int n);
+long long int		ft_abs(long long int n);
 void				ft_swap(int *a, int *b);
 char				*ft_strrev(char *str);
 int					ft_getcharindex(char *str, char c);

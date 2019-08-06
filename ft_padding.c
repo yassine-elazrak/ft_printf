@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 23:08:04 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 09:13:57 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/06 19:58:19 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 char			*ft_push_c(char *str, int i, char *c, int ps)
 {
-	char *tmp;
+	char	*tmp;
+	t_free	*ptr;
 
 	tmp = NULL;
 	while (i > 0)
 	{
-		tmp = str;
+		// ptr->tmp = str;
+		// ptr = ptr->next;
 		if (ps == 1)
 			str = ft_strjoin(c, str);
 		else if (ps == 0)

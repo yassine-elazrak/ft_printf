@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   ft_print_f.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 03:02:16 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 15:42:15 by mobouzar         ###   ########.fr       */
+/*   Created: 2019/08/06 16:53:23 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/08/06 19:51:39 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-long long int	ft_abs(long long int n)
+int		ft_print_f(va_list list, t_init *lst)
 {
-	if (n < 0)
-		return (n * -1);
+	t_float		init;
+	long double nb;
+	int			len;
+
+	len = 0;
+	if ((lst->flag & L_D) == L_D)
+		nb = va_arg(list, long double);
 	else
-		return (n);
+		nb = va_arg(list, double);
+	init.f = nb;
+	len = ft_exponent(&init.lst, lst->precision);
+	return (len);
 }

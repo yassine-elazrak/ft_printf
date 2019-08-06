@@ -6,43 +6,101 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 10:23:01 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/06 19:44:56 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "libft/libft.h"
-#include <limits.h>
+#ifndef FT_PRINT_H
+# define FT_PRINT_H
 
-#define	ZERO	0b0000000000000001
-#define	HASH	0b0000000000000010
-#define	SPACE	0b0000000000000100
-#define	PLUS	0b0000000000001000
-#define	MINUS	0b0000000000010000
-#define	L		0b0000000000100000
-#define	LL		0b0000000001000000
-#define	H		0b0000000010000000
-#define	HH		0b0000000100000000
+# include <stdarg.h>
+# include "libft/libft.h"
+# include <limits.h>
+# include <float.h>
 
-typedef struct	s_init
+# define	ZERO	0b0000000000000001
+# define	HASH	0b0000000000000010
+# define	SPACE	0b0000000000000100
+# define	PLUS	0b0000000000001000
+# define	MINUS	0b0000000000010000
+# define	LONG	0b0000000000100000
+# define	LL		0b0000000001000000
+# define	H		0b0000000010000000
+# define	HH		0b0000000100000000
+# define	L_D		0b0000001000000000
+
+typedef struct			s_init
 {
-	short		flag;
-	char		specifier;
-	int			precision;
-	int			width;
-}				t_init;
+short					flag;
+char					specifier;
+int						precision;
+int						width;
+}						t_init;
 
-int				ft_print_d(va_list list, t_init *lst);
-int				ft_print_base(va_list list, t_init *lst);
-int				ft_print_s(va_list list, t_init *lst);
-int				ft_print_c(va_list list, t_init *lst);
-int				ft_print_persent(t_init *lst);
+typedef struct			s_free
+{
+	void				*tmp;
+	struct s_free		*next;
+}						t_free;
 
-int				ft_printf(const char *format, ...);
-int				ft_print_format(va_list list, const char *format, t_init *f);
-char			*ft_push_c(char *str, int i, char *c, int ps);
+typedef struct			s_var
+{
+	int					s_a;
+	int					s_b;
+	int					i;
+	int					k;
+	int 				rest;
+	int 				len;
+	int					csnt;
+	char 				*result;
+	char 				*str;
+	char				*tmp;
+	char				*tmp_2;
+	char				aa;
+	char				bb;
+}						t_var;
 
-char			*ft_manage_width(t_init *lst, char *str);
-int				ft_get_flag_of_format(t_init *lst, const char *format);
-int				ft_char_nbr(char c);
-int				ft_str_nbr(char *str);
+typedef struct			s_data
+{
+    unsigned long long  mantissa:63;
+    unsigned long long	as:1;
+    long long			exp:15;
+    unsigned long long	sign:1;
+}						t_data;
+
+typedef union			u_float
+{
+	long double			f;
+	t_data				lst;
+}						t_float;
+
+# define I(x)	(x - '0')
+# define K(x)	(x + '0')
+
+int						ft_print_d(va_list list, t_init *lst);
+int						ft_print_base(va_list list, t_init *lst);
+int						ft_print_s(va_list list, t_init *lst);
+int						ft_print_c(va_list list, t_init *lst);
+int						ft_print_f(va_list list, t_init *lst);
+int						ft_print_persent(t_init *lst);
+
+
+
+char					*ft_sum(char *a, char *b);
+char					*ft_produit(char *a, char *b);
+char					*ft_power(char *str, long n);
+char					*ft_strjoin_00(char *dst, int i);
+
+
+int						ft_exponent(t_data *lst, int prs);
+
+int						ft_printf(const char *format, ...);
+int						ft_print_format(va_list list, const char *format, t_init *f);
+char					*ft_push_c(char *str, int i, char *c, int ps);
+
+char					*ft_manage_width(t_init *lst, char *str);
+int						ft_get_flag_of_format(t_init *lst, const char *format);
+int						ft_char_nbr(char c);
+int						ft_str_nbr(char *str);
+
+#endif

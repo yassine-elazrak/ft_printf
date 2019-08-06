@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 08:27:31 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 10:31:23 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/05 21:38:15 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int		ft_print_s(va_list list, t_init *lst)
 	str_len = 0;
 	str = va_arg(list, char *);
 	if (str == NULL)
-	{
 		str = ft_strdup("(null)");
-	}
 	str_len = ft_strlen(str);
 	if (lst->precision < str_len && lst->precision >= 0)
 		str = ft_strsub(str, 0, lst->precision);
@@ -62,7 +60,6 @@ int		ft_print_c(va_list list, t_init *lst)
 		c = '%';
 	str = ft_strnew(0);
 	if (lst->width > 0)
-	{
 		if (((lst->flag & MINUS) == MINUS))
 		{
 			str = ft_push_c(str, lst->width - 1, " ", 0);
@@ -75,7 +72,6 @@ int		ft_print_c(va_list list, t_init *lst)
 			len += ft_str_nbr(str);
 			len += ft_char_nbr(c);
 		}
-	}
 	else
 		len += ft_char_nbr(c);
 	return (len);

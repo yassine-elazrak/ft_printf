@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:46:40 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 10:26:44 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/06 17:20:34 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		ft_manage_format(va_list list, t_init *lst)
 		ret += ft_print_s(list, lst);
 	else if (lst->specifier == 'c')
 		ret += ft_print_c(list, lst);
+	else if (lst->specifier == 'f')
+		ret += ft_print_f(list, lst);
 	else
 	{
 		if ((lst->flag & SPACE) == SPACE)

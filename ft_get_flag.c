@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 19:41:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 04:08:00 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/06 19:38:40 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static void		ft_init(t_init *lst)
 {
-	lst->flag = 0;
 	lst->precision = -1;
+	lst->flag = 0;
 	lst->width = -1;
 	lst->specifier = '\0';
 }
@@ -65,6 +65,8 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 	char	*tmp;
 
 	j = i;
+	if (lst->specifier == 'f')
+		lst->precision = 6;
 	if (format[i] == '.')
 	{
 		j++;
@@ -74,34 +76,39 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 		lst->precision = ft_atoi(tmp);
 		if ((lst->flag & ZERO) == ZERO)
 			lst->flag ^= ZERO;
-		free(tmp);
+		ft_strdel(&tmp);
 	}
 	return (j);
 }
 
 static void		ft_modifier(t_init *lst, const char *format, int i)
 {
-	while (format[i])
+	while (ft_strchr("lhL", format[i]))
 	{
 		if (format[i] == 'l' && format[i + 1] == 'l')
 		{
 			lst->flag |= LL;
-			return ;
+			// return ;
 		}
 		if (format[i] == 'l' && format[i + 1] != 'l')
 		{
-			lst->flag |= L;
-			return ;
+			lst->flag |= LONG;
+			// return ;
 		}
 		if (format[i] == 'h' && format[i + 1] == 'h')
 		{
 			lst->flag |= HH;
-			return ;
+			// return ;
 		}
 		if (format[i] == 'h' && format[i + 1] != 'h')
 		{
 			lst->flag |= H;
-			return ;
+			// return ;
+		}
+		if (format[i] == 'L')
+		{
+			lst->flag |= L_D;
+			// return ;
 		}
 		i++;
 	}
@@ -116,7 +123,7 @@ int				ft_get_flag_of_format(t_init *lst, const char *format)
 	ft_init(lst);
 	while (format[i])
 	{
-		if (!ft_strchr("0-+#.hl ", format[i])
+		if (!ft_strchr("0-+#.hlL ", format[i])
 		&& !(format[i] >= '0' && format[i] <= '9'))
 		{
 			lst->specifier = format[i];
