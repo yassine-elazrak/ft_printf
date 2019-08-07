@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 23:08:04 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 19:58:19 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/07 19:56:00 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,12 @@ static char		*ft_check(t_init *lst, char *str, char **tmp)
 
 static char		*ft_join_char(t_init *lst, char *str, int i)
 {
+	const int	str_len = ft_strlen(str);
 	char	*tmp;
 	char	*sign;
 
+	if (ft_strstr(str, "nan"))
+		return (str);
 	sign = ft_strnew(3);
 	tmp = str;
 	str = ft_check(lst, str, &sign);
@@ -92,6 +95,7 @@ static char		*ft_join_char(t_init *lst, char *str, int i)
 		*sign = ' ';
 	if (((lst->flag & PLUS) == PLUS) && tmp[0] != '-' && tmp[0] != '+')
 		i--;
+	// ft_putstr("here");
 	str = ft_push_c(str, i, "0", 1);
 	if (*sign != '\0')
 	{
@@ -99,7 +103,7 @@ static char		*ft_join_char(t_init *lst, char *str, int i)
 		str = ft_strjoin(sign, str);
 		// ft_strdel(&tmp);
 	}
-	ft_strdel(&sign);
+	// ft_strdel(&sign);
 	return (str);
 }
 
@@ -109,7 +113,7 @@ static char		*ft_manage_precision(t_init *lst, char *str)
 	int			i;
 
 	i = -1;
-	if (lst->precision == 0 && *str == '0')
+	if (lst->precision == 0 && *str == '0' && lst->specifier != 'f')
 	{
 		// ft_strdel(&str);
 		str = ft_strdup("");
@@ -117,7 +121,7 @@ static char		*ft_manage_precision(t_init *lst, char *str)
 	if ((lst->specifier == 'x' || lst->specifier == 'X'
 	|| lst->specifier == 'u') && str[0] == '\0')
 		return (str);
-	if (lst->precision > str_len)
+	if (lst->precision > str_len && (lst->specifier != 'f'))
 	{
 		if ((lst->flag & PLUS) == PLUS || str[0] == '-')
 			i = lst->precision - str_len + 1;
@@ -140,14 +144,21 @@ char			*ft_manage_width(t_init *lst, char *str)
 	i = 0;
 	str = ft_manage_precision(lst, str);
 	str_len = ft_strlen(str);
+
 	if (lst->width > str_len)
 	{
 		if ((lst->flag & MINUS) == MINUS)
 			str = ft_push_c(str, lst->width - str_len, " ", 0);
-		else if ((lst->flag & ZERO) == ZERO)
+		else if ((lst->flag & ZERO) == ZERO /*&&  lst->specifier != 'f' !ft_strstr(str, "nan")*/)
+		{
+			// ft_putstr("here");
 			str = ft_join_char(lst, str, lst->width - str_len);
+		}
 		else
+		{
+			// ft_putstr("here1");
 			str = ft_push_c(str, lst->width - str_len, " ", 1);
+		}
 	}
 	return (str);
 }

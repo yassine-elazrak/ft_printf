@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 19:44:56 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/07 16:13:54 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ typedef struct			s_var
 
 typedef struct			s_data
 {
-    unsigned long long  mantissa:63;
-    unsigned long long	as:1;
-    long long			exp:15;
-    unsigned long long	sign:1;
+    unsigned long long  mantissa	: 63;
+    unsigned long long	as			: 1;
+    long long			exp			: 15;
+    unsigned long long	sign		: 1;
 }						t_data;
 
 typedef union			u_float
 {
 	long double			f;
-	t_data				lst;
+	t_data				list;
 }						t_float;
 
 # define I(x)	(x - '0')
@@ -92,7 +92,7 @@ char					*ft_power(char *str, long n);
 char					*ft_strjoin_00(char *dst, int i);
 
 
-int						ft_exponent(t_data *lst, int prs);
+char						*ft_exponent(t_data *lst, int prs, t_init	*list);
 
 int						ft_printf(const char *format, ...);
 int						ft_print_format(va_list list, const char *format, t_init *f);

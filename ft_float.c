@@ -6,11 +6,12 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:23:50 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 19:44:58 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/07 22:28:55 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 char	*ft_mantissa(t_data *lst)
 {
@@ -31,100 +32,111 @@ char	*ft_mantissa(t_data *lst)
 			var.result = ft_strjoin(var.result, "0");
 			//var.result = ft_strjoin_00(var.result, 1);
 	}
-	// printf("\nman = %s\n",var.result);
+	//  printf("\nman = %s\n",var.result);
 	return (var.result);
 }
 
-int		ft_putstr_float(char *src, char *dst, char *tmp, int prs)
+char		*ft_putstr_float(char *src, char *dst, char *tmp, int prs)
 {
 	int		a;
 	int		len;
 
 	len = 0;
 	a = ft_strlen(dst);
-	len += ft_str_nbr(src);
-	if (prs > 0)
-		len += ft_char_nbr('.');
-	len += ft_str_nbr(tmp);
+	if (prs > 0 && !ft_strchr(src, '.'))
+		src = ft_strjoin(src, ".");
+	src = ft_strjoin(src, tmp);
 	if (prs >= 63 && ((a) < prs))
 	{
 		prs -= 63;
-		while (prs-- > 0)
-			len += ft_char_nbr('0');
+		src = ft_strjoin_00(src, prs);
 	}
 	// ft_strdel(&tmp);
-	return (len);
+	return (src);
 }
 
-void	ft_check_randu(char **str, char **part_e, int prs)
+void	ft_check_rounding(char **str, char **part_e, int prs)
 {
 	int		i;
 	char	*tmp_2;
 	char	*tmp;
 	char	*dst;
-	int		a;
 	char	*tmp_3;
 
 	dst = *str;
 	tmp = *part_e;
-	i = prs + i;
-	a = ft_strlen(dst);
-	while ((dst[i++] == '0') && dst[i])
-		if (i < a)
+	i = prs + 1;
+	while ((dst[i] == '0') && dst[i])
+		i++;
+	if (i < 63)
+	{
+		tmp_3 = *part_e;
+		*part_e = ft_sum(*part_e, "1");
+	}
+	else
+	{
+		// printf("nbr => |%d|\n", I(*part_e[prs - 1]));
+		if (I(*part_e[prs - 1]) % 2 != 0)
 		{
+			// ft_putstr("here");
 			tmp_3 = tmp;
-			tmp = ft_sum(tmp, "1");
-			// ft_strdel(&tmp_3);
+			*part_e = ft_sum(*part_e, "1");
 		}
-		else
-		{
-			if (I(dst[prs - 1]) % 2 != 0)
-			{
-				tmp_3 = tmp;
-				tmp = ft_sum(tmp, "1");
-				// ft_strdel(&tmp_3);
-			}
-		}
+	}
 }
 
-int		ft_randu(char *srcs, char *dst, int prs)
+char		*ft_rounding(char *srcs, char *dst, t_init	*lst, int prs)
 {
 	char	*str;
 	char	*tmp;
 	char	*tmp_3;
 	char	*tmp_2;
-	int		len;
 
 	tmp = ft_strsub(dst, 0, prs);
 	if ((I(dst[prs]) > 5))
 	{
 		tmp_3 = tmp;
-		tmp = ft_sum(tmp, "1");
-		ft_strdel(&tmp_3);
+		if (prs > 0)
+			tmp = ft_sum(tmp, "1");
+		else
+		{
+			tmp = ft_sum(srcs, "1");
+			return (tmp);
+		}
 	}
-	else if ((I(dst[prs]) == 5))
-		ft_check_randu(&dst, &tmp, prs);
-	if (ft_strlen(tmp) > prs)
+	else if ((I(dst[prs]) == 5) && prs > 0)
+		ft_check_rounding(&dst, &tmp, prs);
+
+	else if ((I(dst[prs]) == 5) && prs == 0)
+	{
+		// printf("dst => |%s|\n", dst);
+		ft_check_rounding(&dst, &srcs, prs);
+	}
+	if (ft_strlen(tmp) > prs && prs > 0)
 	{
 		tmp_3 = ft_strsub(tmp, 0, 1);
 		srcs = ft_sum(srcs, tmp_3);
 		tmp = &tmp[1];
 	}
-	len = ft_putstr_float(srcs, dst, tmp, prs);
-	return (len);
+	if ((lst->flag & HASH) == HASH)
+		srcs = ft_strjoin(srcs, ".");
+	// printf("part => |%s|\n", tmp);
+	tmp = ft_putstr_float(srcs, dst, tmp, prs);
+	return (tmp);
 }
 
-int		ft_get_vurgile(char *str, int exp, int prs)
+char	*ft_get_vurgile(char *str, int exp, int prs, t_init	*lst)
 {
 	int		i;
 	char	*tmp;
 	char	*tmp_2;
+	char	*ret;
 
 	i = ft_strlen(str) - 63;
 	if (i >= 0 && exp >= 0)
 	{
 		tmp_2 = ft_strsub(str, 0, i);
-		i = ft_randu(tmp_2, &str[i], prs);
+		ret = ft_rounding(tmp_2, &str[i], lst, prs);
 	}
 	else
 	{
@@ -132,31 +144,35 @@ int		ft_get_vurgile(char *str, int exp, int prs)
 		tmp = ft_strjoin_00(ft_strnew(0), ft_abs(i + exp));
 		str = ft_strjoin(tmp, str);
 		// ft_strdel(&tmp);
-		i = ft_randu(tmp_2, &str[0], prs);
+	ret = ft_rounding(tmp_2, &str[0], lst, prs);
 	}
 	// ft_strdel(&tmp_2);
-	return (i);
+	return (ret);
 }
 
-int		ft_exponent(t_data *lst, int prs)
+char	*ft_exponent(t_data *list, int prs, t_init *lst)
 {
 	char	*str;
 	char	*tmp;
 	int		len;
 
 	tmp = NULL;
-	str = ft_mantissa(lst);
-	lst->exp = lst->exp - 16383;
-	if (lst->as & 1)
+	str = ft_strdup("0");
+	str = ft_mantissa(list);
+	if (list->exp != 0)
+		list->exp = list->exp - 16383;
+	if (list->as & 1)
 	{
 		tmp = str;
 		str = ft_strjoin("1", str);
 		// ft_strdel(&tmp);
 	}
-	tmp = lst->exp < 0 ? "5" : "2";
-	tmp = ft_power(tmp, ft_abs(lst->exp));
+	tmp = list->exp < 0 ? "5" : "2";
+	//  printf("\n\nexp  = =  %lld\n\n",lst->exp);
+	tmp = ft_power(tmp, ft_abs(list->exp));//ft_putstr(tmp);
 	str = ft_produit(str, tmp);
-	// ft_strdel(&tmp);
-	len = ft_get_vurgile(str, lst->exp, prs);
-	return (len);
+		// ft_strdel(&tmp);
+		// printf("sxp => |%s|\n", str);
+	str = ft_get_vurgile(str, list->exp, prs, lst);
+	return (str);
 }

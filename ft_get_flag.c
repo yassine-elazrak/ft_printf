@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 19:41:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 19:38:40 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/07 19:57:25 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 			j++;
 		tmp = ft_strsub(format, i + 1, j);
 		lst->precision = ft_atoi(tmp);
-		if ((lst->flag & ZERO) == ZERO)
+		if ((lst->flag & ZERO) == ZERO && lst->specifier != 'f')
 			lst->flag ^= ZERO;
-		ft_strdel(&tmp);
+		// ft_strdel(&tmp);
 	}
 	return (j);
 }
