@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_padding.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 23:08:04 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/07 19:56:00 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:46:33 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ char			*ft_manage_width(t_init *lst, char *str)
 	{
 		if ((lst->flag & MINUS) == MINUS)
 			str = ft_push_c(str, lst->width - str_len, " ", 0);
-		else if ((lst->flag & ZERO) == ZERO /*&&  lst->specifier != 'f' !ft_strstr(str, "nan")*/)
+		else if ((lst->flag & ZERO) == ZERO  &&  !ft_strstr(str, "inf") && !ft_strstr(str, "nan"))/*&&  lst->specifier != 'f'*/
 		{
 			// ft_putstr("here");
 			str = ft_join_char(lst, str, lst->width - str_len);

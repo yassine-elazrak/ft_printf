@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_flag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 19:41:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/07 19:57:25 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/08 20:19:35 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 	char	*tmp;
 
 	j = i;
-	if (lst->specifier == 'f')
-		lst->precision = 6;
+
 	if (format[i] == '.')
 	{
 		j++;
@@ -78,6 +77,8 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 			lst->flag ^= ZERO;
 		// ft_strdel(&tmp);
 	}
+	if (lst->specifier == 'f' && lst->precision < 0)
+		lst->precision = 6;
 	return (j);
 }
 
