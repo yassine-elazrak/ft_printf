@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   ft_safe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 20:56:44 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/08 16:48:17 by mobouzar         ###   ########.fr       */
+/*   Created: 2019/08/08 14:18:05 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/08/08 21:02:57 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(char **as)
+char	*ft_safe(char *str, char *tmp)
 {
-	if (as == NULL)
-		return ;
-	free(*as);
-	*as = NULL;
+	ft_strdel(&str);
+	str = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	return (str);
 }

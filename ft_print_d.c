@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 01:35:10 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 19:34:14 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/08 21:18:08 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		ft_print_d(va_list list, t_init *lst)
 	else
 		nbr = va_arg(list, int);
 	str = ft_itoa(nbr);
+	//free(str);
 	str = ft_manage_width(lst, str);
 	len += ft_str_nbr(str);
 	ft_strdel(&str);

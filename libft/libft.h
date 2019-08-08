@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:39:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 15:42:06 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/08 19:33:11 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ char				*ft_itoa_base(unsigned long long int value, int base);
 int					ft_lstsupp(t_list *lst);
 char				*ft_str_toupper(char *str);
 int					ft_sqrt(int nb);
+char				*ft_safe(char *str, char *temp);
+char				*ft_strjoin_free(char *s1, char *s2);
 
 #endif

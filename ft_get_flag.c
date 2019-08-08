@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_flag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 19:41:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/08 20:19:35 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/08/08 20:42:22 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 	char	*tmp;
 
 	j = i;
-
 	if (format[i] == '.')
 	{
 		j++;
@@ -75,7 +74,6 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 		lst->precision = ft_atoi(tmp);
 		if ((lst->flag & ZERO) == ZERO && lst->specifier != 'f')
 			lst->flag ^= ZERO;
-		// ft_strdel(&tmp);
 	}
 	if (lst->specifier == 'f' && lst->precision < 0)
 		lst->precision = 6;
@@ -87,30 +85,15 @@ static void		ft_modifier(t_init *lst, const char *format, int i)
 	while (ft_strchr("lhL", format[i]))
 	{
 		if (format[i] == 'l' && format[i + 1] == 'l')
-		{
 			lst->flag |= LL;
-			// return ;
-		}
 		if (format[i] == 'l' && format[i + 1] != 'l')
-		{
 			lst->flag |= LONG;
-			// return ;
-		}
 		if (format[i] == 'h' && format[i + 1] == 'h')
-		{
 			lst->flag |= HH;
-			// return ;
-		}
 		if (format[i] == 'h' && format[i + 1] != 'h')
-		{
 			lst->flag |= H;
-			// return ;
-		}
 		if (format[i] == 'L')
-		{
 			lst->flag |= L_D;
-			// return ;
-		}
 		i++;
 	}
 }

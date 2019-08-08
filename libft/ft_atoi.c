@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 06:31:31 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/08 20:20:37 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/08/08 20:18:13 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		ft_atoi(const char *str)
 {
-	int multiplier;
-	long long int total;
+	int				multiplier;
+	long long int	total;
 
 	multiplier = 1;
 	total = 0;
@@ -35,6 +35,6 @@ int		ft_atoi(const char *str)
 		str++;
 	}
 	if (total > 2147483647)
-	return (-1);
+		return (-1);
 	return (total * multiplier);
 }

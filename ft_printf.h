@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/07 16:13:54 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/08 20:29:40 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft/libft.h"
 # include <limits.h>
 # include <float.h>
+# include <math.h>
 
 # define	ZERO	0b0000000000000001
 # define	HASH	0b0000000000000010

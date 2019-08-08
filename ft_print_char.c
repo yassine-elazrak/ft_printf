@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 08:27:31 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/05 21:38:15 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/08 20:40:35 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char		*ft_width(t_init *lst, char *str)
 	return (str);
 }
 
-int		ft_print_s(va_list list, t_init *lst)
+int				ft_print_s(va_list list, t_init *lst)
 {
 	char	*str;
 	int		str_len;
@@ -47,37 +47,35 @@ int		ft_print_s(va_list list, t_init *lst)
 	return (len);
 }
 
-int		ft_print_c(va_list list, t_init *lst)
+int				ft_print_c(va_list list, t_init *lst)
 {
 	char	c;
 	char	*str;
 	int		len;
 
 	len = 0;
-	if (lst->specifier == 'c')
-		c = (char)va_arg(list, int);
-	else
-		c = '%';
+	c = (char)va_arg(list, int);
 	str = ft_strnew(0);
 	if (lst->width > 0)
 		if (((lst->flag & MINUS) == MINUS))
 		{
-			str = ft_push_c(str, lst->width - 1, " ", 0);
+			str = ft_safe(str, ft_push_c(str, lst->width - 1, " ", 0));
 			len += ft_char_nbr(c);
 			len += ft_str_nbr(str);
 		}
 		else
 		{
-			str = ft_push_c(str, lst->width - 1, " ", 1);
+			str = ft_safe(str, ft_push_c(str, lst->width - 1, " ", 1));
 			len += ft_str_nbr(str);
 			len += ft_char_nbr(c);
 		}
 	else
 		len += ft_char_nbr(c);
+	ft_strdel(&str);
 	return (len);
 }
 
-int		ft_print_persent(t_init *lst)
+int				ft_print_persent(t_init *lst)
 {
 	int		len;
 	char	*str;

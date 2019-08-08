@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_padding.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 23:08:04 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/08 17:46:33 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/08/08 21:19:28 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,22 @@
 char			*ft_push_c(char *str, int i, char *c, int ps)
 {
 	char	*tmp;
-	t_free	*ptr;
 
-	tmp = NULL;
+	tmp = ft_strdup(str);
 	while (i > 0)
 	{
-		// ptr->tmp = str;
-		// ptr = ptr->next;
 		if (ps == 1)
-			str = ft_strjoin(c, str);
+			tmp = ft_strjoin_free(ft_strdup(c), tmp);
 		else if (ps == 0)
-			str = ft_strjoin(str, c);
+			tmp = ft_strjoin_free(tmp, ft_strdup(c));
 		i--;
-		// ft_strdel(&tmp);
 	}
-	return (str);
+	//ft_strdel(&str);
+	return (tmp);
 }
 
-static char		*ft_check(t_init *lst, char *str, char **tmp)
+static char		*ft_prefix(t_init *lst, char *str, char *sign)
 {
-	char *sign;
-
-	sign = *tmp;
-	if (*str == '-')
-	{
-		*sign = '-';
-		str++;
-	}
-	if (*str == '+')
-	{
-		*sign = '+';
-		str++;
-	}
-	if (*str == ' ')
-	{
-		*sign = ' ';
-		str++;
-	}
 	if (str[0] == '0' && str[1] == 'x')
 	{
 		sign[0] = '0';
@@ -78,11 +57,35 @@ static char		*ft_check(t_init *lst, char *str, char **tmp)
 	return (str);
 }
 
+static char		*ft_check(t_init *lst, char *str, char **tmp)
+{
+	char *sign;
+
+	sign = *tmp;
+	if (*str == '-')
+	{
+		*sign = '-';
+		str++;
+	}
+	if (*str == '+')
+	{
+		*sign = '+';
+		str++;
+	}
+	if (*str == ' ')
+	{
+		*sign = ' ';
+		str++;
+	}
+	str = ft_prefix(lst, str, sign);
+	return (str);
+}
+
 static char		*ft_join_char(t_init *lst, char *str, int i)
 {
 	const int	str_len = ft_strlen(str);
-	char	*tmp;
-	char	*sign;
+	char		*tmp;
+	char		*sign;
 
 	if (ft_strstr(str, "nan"))
 		return (str);
@@ -95,12 +98,10 @@ static char		*ft_join_char(t_init *lst, char *str, int i)
 		*sign = ' ';
 	if (((lst->flag & PLUS) == PLUS) && tmp[0] != '-' && tmp[0] != '+')
 		i--;
-	// ft_putstr("here");
 	str = ft_push_c(str, i, "0", 1);
 	if (*sign != '\0')
 	{
-		tmp = str;
-		str = ft_strjoin(sign, str);
+		str = ft_strjoin_free(sign, str);
 		// ft_strdel(&tmp);
 	}
 	// ft_strdel(&sign);
@@ -115,7 +116,6 @@ static char		*ft_manage_precision(t_init *lst, char *str)
 	i = -1;
 	if (lst->precision == 0 && *str == '0' && lst->specifier != 'f')
 	{
-		// ft_strdel(&str);
 		str = ft_strdup("");
 	}
 	if ((lst->specifier == 'x' || lst->specifier == 'X'
@@ -130,35 +130,35 @@ static char		*ft_manage_precision(t_init *lst, char *str)
 	}
 	else if (lst->precision < str_len && lst->specifier == 's')
 		str = ft_strsub(str, 0, lst->precision);
+	char *t;
+	t = str;
 	str = ft_join_char(lst, str, i);
+	//free(t);
 	if (lst->specifier == 'o' && (lst->flag & HASH) == HASH && str[0] != '0')
 		str = ft_push_c(str, 1, "0", 1);
 	return (str);
 }
 
-char			*ft_manage_width(t_init *lst, char *str)
+char			*ft_manage_width(t_init *lst, char *s)
 {
 	int			str_len;
 	int			i;
+	char *str;
+
+	str = ft_strdup(s);
 
 	i = 0;
 	str = ft_manage_precision(lst, str);
 	str_len = ft_strlen(str);
-
 	if (lst->width > str_len)
 	{
 		if ((lst->flag & MINUS) == MINUS)
 			str = ft_push_c(str, lst->width - str_len, " ", 0);
-		else if ((lst->flag & ZERO) == ZERO  &&  !ft_strstr(str, "inf") && !ft_strstr(str, "nan"))/*&&  lst->specifier != 'f'*/
-		{
-			// ft_putstr("here");
-			str = ft_join_char(lst, str, lst->width - str_len);
-		}
+		else if ((lst->flag & ZERO) == ZERO && !ft_strstr(str, "inf")
+		&& !ft_strstr(str, "nan"))
+			str = ft_safe(str, ft_join_char(lst, str, lst->width - str_len));
 		else
-		{
-			// ft_putstr("here1");
 			str = ft_push_c(str, lst->width - str_len, " ", 1);
-		}
 	}
 	return (str);
 }
