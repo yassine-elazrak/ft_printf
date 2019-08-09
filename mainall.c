@@ -6,12 +6,13 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 10:43:21 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/08 20:38:12 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:34:47 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <limits.h>
+#include <stdio.h>
 #include <float.h>
 
 int			main(void)

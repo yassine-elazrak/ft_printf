@@ -6,32 +6,44 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 04:18:22 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 19:34:38 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:54:19 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static char		*add(char **tmp, char *str)
+{
+	if (str != NULL)
+		*tmp = str;
+	else
+		*tmp = NULL;
+	return (str);
+}
+
 static int		ft_print(t_init *lst, unsigned long long int nbr)
 {
 	int		len;
 	char	*str;
+	char	*tmp;
 
 	len = 0;
 	str = NULL;
 	if (lst->specifier == 'o')
-		str = ft_itoa_base(nbr, 8);
-	if (lst->specifier == 'x' || lst->specifier == 'p')
-		str = ft_itoa_base(nbr, 16);
-	if (lst->specifier == 'X')
+		str = add(&tmp, ft_itoa_base(nbr, 8));
+	else if (lst->specifier == 'x' || lst->specifier == 'p')
+		str = add(&tmp, ft_itoa_base(nbr, 16));
+	else if (lst->specifier == 'X')
 	{
-		str = ft_itoa_base(nbr, 16);
+		str = add(&tmp, ft_itoa_base(nbr, 16));
 		str = ft_str_toupper(str);
 	}
-	if (lst->specifier == 'u')
-		str = ft_itoa_base(nbr, 10);
+	else if (lst->specifier == 'u')
+		str = add(&tmp, ft_itoa_base(nbr, 10));
 	str = ft_manage_width(lst, str);
 	len += ft_str_nbr(str);
+	ft_strdel(&tmp);
+	free(str);
 	return (len);
 }
 

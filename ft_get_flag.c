@@ -6,12 +6,11 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 19:41:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/08 20:42:22 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:59:35 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 static void		ft_init(t_init *lst)
 {
@@ -72,6 +71,7 @@ static int		ft_precision(t_init *lst, const char *format, int i)
 			j++;
 		tmp = ft_strsub(format, i + 1, j);
 		lst->precision = ft_atoi(tmp);
+		free(tmp);
 		if ((lst->flag & ZERO) == ZERO && lst->specifier != 'f')
 			lst->flag ^= ZERO;
 	}

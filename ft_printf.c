@@ -6,12 +6,11 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:46:40 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/06 21:28:06 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:51:53 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int		ft_char_nbr(char c)
 {

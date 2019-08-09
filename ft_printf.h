@@ -6,12 +6,12 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/08 20:29:40 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/09 17:09:44 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINT_H
-# define FT_PRINT_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stdarg.h>
 # include "libft/libft.h"
@@ -19,30 +19,27 @@
 # include <float.h>
 # include <math.h>
 
-# define	ZERO	0b0000000000000001
-# define	HASH	0b0000000000000010
-# define	SPACE	0b0000000000000100
-# define	PLUS	0b0000000000001000
-# define	MINUS	0b0000000000010000
-# define	LONG	0b0000000000100000
-# define	LL		0b0000000001000000
-# define	H		0b0000000010000000
-# define	HH		0b0000000100000000
-# define	L_D		0b0000001000000000
+# define ZERO	0b0000000000000001
+# define HASH	0b0000000000000010
+# define SPACE	0b0000000000000100
+# define PLUS	0b0000000000001000
+# define MINUS	0b0000000000010000
+# define LONG	0b0000000000100000
+# define LL		0b0000000001000000
+# define H		0b0000000010000000
+# define HH		0b0000000100000000
+# define L_D	0b0000001000000000
+
+# define I(x)	(x - '0')
+# define K(x)	(x + '0')
 
 typedef struct			s_init
 {
-short					flag;
-char					specifier;
-int						precision;
-int						width;
+	short				flag;
+	char				specifier;
+	int					precision;
+	int					width;
 }						t_init;
-
-typedef struct			s_free
-{
-	void				*tmp;
-	struct s_free		*next;
-}						t_free;
 
 typedef struct			s_var
 {
@@ -50,11 +47,11 @@ typedef struct			s_var
 	int					s_b;
 	int					i;
 	int					k;
-	int 				rest;
-	int 				len;
+	int					rest;
+	int					len;
 	int					csnt;
-	char 				*result;
-	char 				*str;
+	char				*result;
+	char				*str;
 	char				*tmp;
 	char				*tmp_2;
 	char				aa;
@@ -63,10 +60,10 @@ typedef struct			s_var
 
 typedef struct			s_data
 {
-    unsigned long long  mantissa	: 63;
-    unsigned long long	as			: 1;
-    long long			exp			: 15;
-    unsigned long long	sign		: 1;
+	unsigned long long	mantissa :	63;
+	unsigned long long	as :		1;
+	long long			exp :		15;
+	unsigned long long	sign :		1;
 }						t_data;
 
 typedef union			u_float
@@ -75,9 +72,6 @@ typedef union			u_float
 	t_data				list;
 }						t_float;
 
-# define I(x)	(x - '0')
-# define K(x)	(x + '0')
-
 int						ft_print_d(va_list list, t_init *lst);
 int						ft_print_base(va_list list, t_init *lst);
 int						ft_print_s(va_list list, t_init *lst);
@@ -85,18 +79,16 @@ int						ft_print_c(va_list list, t_init *lst);
 int						ft_print_f(va_list list, t_init *lst);
 int						ft_print_persent(t_init *lst);
 
-
-
 char					*ft_sum(char *a, char *b);
 char					*ft_produit(char *a, char *b);
 char					*ft_power(char *str, long n);
 char					*ft_strjoin_00(char *dst, int i);
 
-
-char						*ft_exponent(t_data *lst, int prs, t_init	*list);
+char					*ft_exponent(t_data *lst, int prs, t_init	*list);
 
 int						ft_printf(const char *format, ...);
-int						ft_print_format(va_list list, const char *format, t_init *f);
+int						ft_print_format(va_list list, const char *format,
+						t_init *f);
 char					*ft_push_c(char *str, int i, char *c, int ps);
 
 char					*ft_manage_width(t_init *lst, char *str);

@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 09:18:54 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/07 16:16:04 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:50:12 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,14 @@ char	*ft_strnew_00(size_t size)
 
 char	*ft_strjoin_00(char *dst, int i)
 {
-	char *rst;
 	char *str;
 
 	str = ft_strdup(dst);
 	while (i > 0)
-	{	//str = rst;
+	{
 		str = ft_strjoin(str, "0");
-		//free(str);
-	///;
 		i--;
 	}
-	// ft_strdel(&dst);
 	return (str);
 }
 
@@ -54,7 +50,6 @@ char	*ft_sum(char *a, char *b)
 
 	i = -1;
 	var.rest = 0;
-	// printf("a => |%s|, b => |%s|\n", a, b);
 	var.s_a = ft_strlen(a) - 1;
 	var.s_b = ft_strlen(b) - 1;
 	var.len = (var.s_a > var.s_b) ? var.s_a + 1 : var.s_b + 1;
