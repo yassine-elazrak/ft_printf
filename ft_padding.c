@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_padding.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 23:08:04 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/09 17:15:21 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/16 14:54:55 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ char			*ft_push_c(char *str, int i, char *c, int ps)
 
 static char		*ft_join_char(t_init *lst, char *str, int i)
 {
-	char		*tmp;
+	char		*tmp = NULL;
 	char		*sign;
 
 	if (ft_strstr(str, "nan"))
-		return (str);
+		 return ((ft_strdup(str)));
 	sign = ft_strnew(3);
 	tmp = str;
 	str = ft_check(lst, str, &sign);
@@ -100,7 +100,6 @@ static char		*ft_join_char(t_init *lst, char *str, int i)
 	if (((lst->flag & PLUS) == PLUS) && tmp[0] != '-' && tmp[0] != '+')
 		i--;
 	str = ft_push_c(str, i, "0", 1);
-	tmp = str;
 	if (*sign != '\0')
 		str = ft_strjoin_free(ft_strdup(sign), str);
 	ft_strdel(&sign);
@@ -130,11 +129,7 @@ static char		*ft_manage_precision(t_init *lst, char *str)
 		else
 			i = lst->precision - str_len;
 	else if (lst->precision < str_len && lst->specifier == 's')
-	{
-		tmp = str;
 		str = ft_safe(str, ft_strsub(str, 0, lst->precision));
-		ft_strdel(&tmp);
-	}
 	str = ft_join_char(lst, str, i);
 	if (lst->specifier == 'o' && (lst->flag & HASH) == HASH && str[0] != '0')
 	{
@@ -165,8 +160,7 @@ char			*ft_manage_width(t_init *lst, char *s)
 		{
 			tmp = str;
 			str = ft_push_c(str, lst->width - str_len, " ", 0);
-			if (lst->specifier != 'f')
-				free(tmp);
+			free(tmp);
 		}
 		else if ((lst->flag & ZERO) == ZERO && !ft_strstr(str, "inf")
 		&& !ft_strstr(str, "nan"))
@@ -179,8 +173,7 @@ char			*ft_manage_width(t_init *lst, char *s)
 		{
 			tmp = str;
 			str = ft_push_c(str, lst->width - str_len, " ", 1);
-			if (lst->specifier != 'f')
-				free(tmp);
+			free(tmp);
 		}
 	}
 	return (str);

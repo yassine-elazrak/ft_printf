@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_operation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 09:18:54 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/09 16:50:12 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/15 08:48:55 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ char	*ft_strjoin_00(char *dst, int i)
 	str = ft_strdup(dst);
 	while (i > 0)
 	{
-		str = ft_strjoin(str, "0");
+		str = ft_strjoin_free(str, ft_strdup("0"));
 		i--;
 	}
+	ft_strdel(&dst);
 	return (str);
 }
 
@@ -64,8 +65,11 @@ char	*ft_sum(char *a, char *b)
 		var.rest = (I(var.aa) + I(var.bb) + var.rest) / 10;
 	}
 	var.result[var.len] = K(var.rest);
+	var.tmp = var.result;
 	if (*(var.result) == '0')
 		(var.result)++;
+	var.result = ft_strdup(var.result);
+	ft_strdel(&var.tmp);
 	return (var.result);
 }
 
@@ -93,8 +97,11 @@ char	*ft_produit(char *a, char *b)
 		}
 		var.result[var.k] = K(var.rest);
 	}
+	var.tmp = var.result;
 	while (*(var.result) == '0' && *(var.result + 1) != '\0')
 		(var.result)++;
+	var.result = ft_strdup(var.result);
+	ft_strdel(&var.tmp);
 	return (var.result);
 }
 
@@ -107,19 +114,28 @@ char	*ft_power(char *str, long n)
 	if (n == 0)
 		return (ft_strdup("1"));
 	dst = ft_strdup(str);
-	//tmp_2 = ft_strdup(str);
 	while (--n > 0)
 	{
 		tmp = dst;
-		dst = ft_produit(tmp, str);
-		// ft_strdel(&tmp);
+		dst = ft_produit(dst, str);
+		 ft_strdel(&tmp);
 	}
-	// ft_putendl("here1");
 	return (dst);
 }
 
 // int 	main()
 // {
-// 	printf("%s",ft_power("12",2));
+// 	char *tmp;
+// 	int n;
+
+// 	n = 999;
+// while (n--)
+// {
+// 	tmp = ft_power("12",2);
+
+// 	ft_strdel(&tmp);
+// }
+
+
 // 	return 0;
 // }

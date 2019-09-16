@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/09 17:09:44 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/15 09:57:20 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <limits.h>
 # include <float.h>
 # include <math.h>
+# include <stdio.h>
 
 # define ZERO	0b0000000000000001
 # define HASH	0b0000000000000010
