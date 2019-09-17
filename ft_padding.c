@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 23:08:04 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/16 18:05:00 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:59:23 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ static char		*ft_join_char(t_init *lst, char *str, int i)
 	tmp = NULL;
 	tmp = str;
 	str = ft_check(lst, str, &sign);
-	if ((lst->flag & PLUS) == PLUS && tmp[0] != '-')
+	if ((lst->flag & PLUS) == PLUS && tmp[0] != '-' && lst->specifier != 'u')
 		*sign = '+';
-	else if ((lst->flag & SPACE) == SPACE && tmp[0] != '-' && tmp[0] != '+')
+	else if ((lst->flag & SPACE) == SPACE && tmp[0] != '-' &&
+	tmp[0] != '+' && lst->specifier != 'u')
 		*sign = ' ';
 	if (((lst->flag & PLUS) == PLUS) && tmp[0] != '-' && tmp[0] != '+')
 		i--;
@@ -42,7 +43,7 @@ static char		*ft_precision_helper(t_init *lst, char *str, int str_len)
 	int i;
 
 	i = -1;
-	if (lst->precision > str_len && (lst->specifier != 'f'))
+	if (lst->precision >= str_len && (lst->specifier != 'f'))
 		if ((lst->flag & PLUS) == PLUS || str[0] == '-')
 			i = lst->precision - str_len + 1;
 		else
