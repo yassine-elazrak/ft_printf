@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_f.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:53:23 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/15 20:26:14 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/09/17 15:25:59 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,23 @@ char	*indefined_form(long double nbr)
 int		ft_print_f(va_list list, t_init *lst)
 {
 	t_float		init;
-	char		*str = NULL;
-	long double nb;
+	char		*str;
 	double		k;
-	int			len;
-	//char        *tmp;
-	int h = 0;
 
-	len = 0;
-
+	str = NULL;
 	init.f = 0.0;
 	init.list.exp = 0.0;
 	init.list.mantissa = 0.0;
 	if ((lst->flag & L_D) == L_D)
-	{
-		nb = va_arg(list, long double);
-		init.f = (long double)nb;
-	}
+		init.f = (long double)va_arg(list, long double);
 	else
-	{
-		k = va_arg(list, double);
-		init.f = k;
-	}
+		init.f = va_arg(list, double);
 	if ((init.f == 1.0 / 0.0) || (init.f == -1.0 / 0.0) || (init.f != init.f))
-	{
 		str = indefined_form(init.f);
-		h  = 9;
-	}
 	else
-	{
 		str = ft_exponent(&init.list, lst->precision, lst);
-	}
-	
-	///str = ft_safe(str,ft_strdup(str));
-	 str = ft_safe(str,ft_manage_width(lst, str));
-
-	len += ft_str_nbr(str);
-	 	ft_strdel(&str);
-
-	return (len);
+	str = ft_safe(str, ft_manage_width(lst, str));
+	k = ft_str_nbr(str);
+	ft_strdel(&str);
+	return ((int)k);
 }

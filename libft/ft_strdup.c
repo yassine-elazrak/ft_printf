@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 00:55:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/02 00:17:45 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/16 18:13:19 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strdup(const char *s1)
 	i = 0;
 	len = ft_strlen(s1);
 	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
-		exit(1);
+		return (0);
 	while (s1[i])
 	{
 		str[i] = s1[i];

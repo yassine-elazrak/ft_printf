@@ -6,19 +6,11 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 19:41:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/09 16:59:35 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/16 23:13:12 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static void		ft_init(t_init *lst)
-{
-	lst->precision = -1;
-	lst->flag = 0;
-	lst->width = -1;
-	lst->specifier = '\0';
-}
 
 static int		ft_flag(t_init *lst, const char *format)
 {

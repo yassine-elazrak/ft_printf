@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
+/*   ft_strjoin_00.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/08 17:33:02 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/16 18:20:17 by mobouzar         ###   ########.fr       */
+/*   Created: 2019/09/17 15:03:36 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/09/17 15:05:28 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
+char	*ft_strjoin_00(char *dst, int i)
 {
-	char	*str;
+	char *str;
 
-	if (!s1 || !s2)
-		return (NULL);
-	str = ft_strjoin(s1, s2);
-	ft_strdel(&s1);
-	ft_strdel(&s2);
+	str = ft_strdup(dst);
+	while (i > 0)
+	{
+		str = ft_strjoin_free(str, ft_strdup("0"));
+		i--;
+	}
+	ft_strdel(&dst);
 	return (str);
 }

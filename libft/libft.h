@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:39:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/09 15:30:51 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/17 15:05:24 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 long long int		ft_abs(long long int n);
 void				ft_swap(int *a, int *b);
+char				*ft_strnew_00(size_t size);
 char				*ft_strrev(char *str);
 int					ft_getcharindex(char *str, char c);
 void				ft_lstdisplcont(t_list *lst);
@@ -96,6 +97,9 @@ char				*ft_itoa_base(unsigned long long int value, int base);
 int					ft_lstsupp(t_list *lst);
 char				*ft_str_toupper(char *str);
 int					ft_sqrt(int nb);
+char				*ft_strjoin_00(char *dst, int i);
+int					ft_char_nbr(char c);
+int					ft_str_nbr(char *str);
 char				*ft_safe(char *str, char *temp);
 char				*ft_strjoin_free(char *s1, char *s2);
 

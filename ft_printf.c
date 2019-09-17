@@ -6,28 +6,18 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:46:40 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/08/09 16:51:53 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/09/16 23:13:27 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_char_nbr(char c)
+void	ft_init(t_init *lst)
 {
-	ft_putchar(c);
-	return (1);
-}
-
-int		ft_str_nbr(char *str)
-{
-	int			i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
-		ft_putchar(str[i++]);
-	return (i);
+	lst->precision = -1;
+	lst->flag = 0;
+	lst->width = -1;
+	lst->specifier = '\0';
 }
 
 int		ft_manage_format(va_list list, t_init *lst)

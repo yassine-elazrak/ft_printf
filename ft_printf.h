@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/15 09:57:20 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/09/17 15:43:33 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,19 @@ int						ft_print_s(va_list list, t_init *lst);
 int						ft_print_c(va_list list, t_init *lst);
 int						ft_print_f(va_list list, t_init *lst);
 int						ft_print_persent(t_init *lst);
+void					ft_init(t_init *lst);
 
 char					*ft_sum(char *a, char *b);
 char					*ft_produit(char *a, char *b);
 char					*ft_power(char *str, long n);
+char					*ft_putstr_float(char *src, char *dst, char *tmp,
+						t_init *lst);
+char					*ft_check(t_init *lst, char *str, char **tmp);
 char					*ft_strjoin_00(char *dst, int i);
 
-char					*ft_exponent(t_data *lst, int prs, t_init	*list);
+char					*ft_exponent(t_data *lst, int prs, t_init *list);
+char					*ft_rounding(char *srcs, char *dst, t_init *lst,
+						int prs);
 
 int						ft_printf(const char *format, ...);
 int						ft_print_format(va_list list, const char *format,

@@ -3,48 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_operation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 09:18:54 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/15 08:48:55 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/09/17 15:20:47 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-char	*ft_strnew_00(size_t size)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
-		exit(1);
-	while (size--)
-	{
-		*(str++) = '0';
-		i++;
-	}
-	*str = '\0';
-	return (str - i);
-}
-
-char	*ft_strjoin_00(char *dst, int i)
-{
-	char *str;
-
-	str = ft_strdup(dst);
-	while (i > 0)
-	{
-		str = ft_strjoin_free(str, ft_strdup("0"));
-		i--;
-	}
-	ft_strdel(&dst);
-	return (str);
-}
-
-char	*ft_sum(char *a, char *b)
+char			*ft_sum(char *a, char *b)
 {
 	t_var	var;
 	int		i;
@@ -68,20 +36,27 @@ char	*ft_sum(char *a, char *b)
 	var.tmp = var.result;
 	if (*(var.result) == '0')
 		(var.result)++;
-	var.result = ft_strdup(var.result);
-	ft_strdel(&var.tmp);
+	var.result = ft_safe(var.tmp, ft_strdup(var.result));
 	return (var.result);
 }
 
-char	*ft_produit(char *a, char *b)
+static void		ft_produit_helper(t_var *lst, char *a, char *b)
+{
+	t_var	*var;
+
+	var = lst;
+	var->s_a = ft_strlen(a);
+	var->s_b = ft_strlen(b);
+	var->len = var->s_a + var->s_b;
+	var->result = ft_strnew_00(var->len);
+}
+
+char			*ft_produit(char *a, char *b)
 {
 	t_var	var;
 	int		prd;
 
-	var.s_a = ft_strlen(a);
-	var.s_b = ft_strlen(b);
-	var.len = var.s_a + var.s_b;
-	var.result = ft_strnew_00(var.len);
+	ft_produit_helper(&var, a, b);
 	while (--var.s_b >= 0)
 	{
 		var.i = var.s_a;
@@ -100,12 +75,11 @@ char	*ft_produit(char *a, char *b)
 	var.tmp = var.result;
 	while (*(var.result) == '0' && *(var.result + 1) != '\0')
 		(var.result)++;
-	var.result = ft_strdup(var.result);
-	ft_strdel(&var.tmp);
+	var.result = ft_safe(var.tmp, ft_strdup(var.result));
 	return (var.result);
 }
 
-char	*ft_power(char *str, long n)
+char			*ft_power(char *str, long n)
 {
 	char	*dst;
 	char	*tmp;
@@ -118,24 +92,7 @@ char	*ft_power(char *str, long n)
 	{
 		tmp = dst;
 		dst = ft_produit(dst, str);
-		 ft_strdel(&tmp);
+		ft_strdel(&tmp);
 	}
 	return (dst);
 }
-
-// int 	main()
-// {
-// 	char *tmp;
-// 	int n;
-
-// 	n = 999;
-// while (n--)
-// {
-// 	tmp = ft_power("12",2);
-
-// 	ft_strdel(&tmp);
-// }
-
-
-// 	return 0;
-// }

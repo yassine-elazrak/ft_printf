@@ -6,14 +6,15 @@
 #    By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:53:40 by mobouzar          #+#    #+#              #
-#    Updated: 2019/08/09 16:32:25 by mobouzar         ###   ########.fr        #
+#    Updated: 2019/09/16 18:05:17 by mobouzar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FLAGS = -Wall -Werror -Wextra
 NAME = libftprintf.a
 OBJECTS = ft_print_d.o ft_get_flag.o ft_padding.o  ft_print_d.o  ft_printf.o mainall.o \
-			ft_print_base.o ft_print_char.o ft_print_f.o ft_float.o ft_operation.o
+			ft_print_base.o ft_print_char.o helper.o ft_print_f.o ft_float.o ft_operation.o \
+			ft_float2.o
 			
 LIBFT = libft/libft.a
 INCLUDE = .
